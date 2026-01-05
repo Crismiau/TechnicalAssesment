@@ -39,6 +39,7 @@ public class CompleteTaskUseCaseTest {
     // TEST #4: CompleteTask_AlreadyCompleted_ShouldFail
     @Test
     void completeTask_AlreadyCompleted_ShouldFail(){
+        // 1. Define ID's
         UUID taskId = UUID.randomUUID();
         Task task = new Task(taskId, UUID.randomUUID(), "Done Task");
         task.complete(); // Here we instantiate the default status "completed" for the test
@@ -52,29 +53,28 @@ public class CompleteTaskUseCaseTest {
     // TEST #5:CompleteTask_ShouldGenerateAuditAndNotification
     @Test
     void completeTask_ShouldGenerateAuditAndNotification() {
-        // 1. Definir IDs
+        // 1. Define ID's
         UUID taskId = UUID.randomUUID();
         UUID projectId = UUID.randomUUID();
         UUID userId = UUID.randomUUID();
 
-        // 2. Crear objetos de dominio para el test
+        // 2. Create domain objects for the test
         Task task = new Task(taskId, projectId, "Pending Task");
         Project project = new Project(projectId, userId, "Test Project");
 
-        // 3. CONFIGURAR MOCKS (Aquí estaba el fallo)
-        // Cuando busque la tarea, que la devuelva
+        // 3. CONFIGURE MOCKS
+        // When searching for the task, return it
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(task));
 
-        // Cuando busque el proyecto de esa tarea, que lo devuelva
+        // When I search for the project for that task, have it return.
         when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
 
-        // Cuando pida el usuario actual, que sea el dueño del proyecto
-        when(currentUserPort.getCurrentUserId()).thenReturn(userId);
+        // When prompted, the current user should be the project owner.        when(currentUserPort.getCurrentUserId()).thenReturn(userId);
 
-        // 4. Ejecutar
+        // 4. Execute
         completeTaskUseCase.complete(taskId);
 
-        // 5. Verificar
+        // 5. VErify
         assertTrue(task.isCompleted());
         verify(auditLogPort).register(eq("TASK_COMPLETED"), eq(taskId));
         verify(notificationPort).notify(anyString());
