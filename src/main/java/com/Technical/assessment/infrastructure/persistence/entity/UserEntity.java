@@ -17,6 +17,7 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
 
+    private Boolean deleted = false;
     private String password;
     private String role;
 }

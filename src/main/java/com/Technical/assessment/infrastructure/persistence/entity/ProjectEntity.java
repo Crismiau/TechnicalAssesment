@@ -16,4 +16,5 @@ public class ProjectEntity {
     private UUID ownerId;
     private String name;
     private String status;
+    private boolean deleted;
 }

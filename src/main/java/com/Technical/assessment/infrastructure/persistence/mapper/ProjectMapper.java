@@ -13,7 +13,12 @@ public class ProjectMapper {
         return entity;
     }
     public static Project toDomain(ProjectEntity entity) {
-        return new Project(entity.getId(), entity.getOwnerId(), entity.getName());
-
+        return new Project(
+                entity.getId(),
+                entity.getOwnerId(),
+                entity.getName(),
+                Project.ProjectStatus.valueOf(entity.getStatus()), // O el mapeo que uses para el enum
+                entity.isDeleted()
+        );
     }
 }

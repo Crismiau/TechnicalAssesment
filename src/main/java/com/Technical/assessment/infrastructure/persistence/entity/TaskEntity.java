@@ -11,9 +11,10 @@ import java.util.UUID;
 public class TaskEntity {
     @Id
     private UUID id;
-
     private UUID projectId;
     private String title;
-    private String status;
+    private boolean completed;
     private boolean deleted;
+
+
 }

@@ -1,5 +1,8 @@
 package com.Technical.assessment.application.port.in;
 
+import com.Technical.assessment.domain.model.Project;
+
 public interface CreateProjectUseCase {
-    void create(String name);
+    // Cambiamos de void a Project
+    Project createProject(Project project);
 }

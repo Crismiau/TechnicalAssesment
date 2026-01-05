@@ -1,31 +1,37 @@
 package com.Technical.assessment.application.usecase;
 
-import com.Technical.assessment.application.port.in.CreateProjectUseCase; // DEBES IMPORTAR EL IN PORT
+import com.Technical.assessment.application.port.in.CreateProjectUseCase;
 import com.Technical.assessment.application.port.out.ProjectRepositoryPort;
 import com.Technical.assessment.application.port.out.CurrentUserPort;
 import com.Technical.assessment.domain.model.Project;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class CreateProjectUseCaseImpl implements CreateProjectUseCase {
 
     private final ProjectRepositoryPort projectRepository;
     private final CurrentUserPort currentUserPort;
 
-    // Constructor para inyectar los puertos de salida
     public CreateProjectUseCaseImpl(ProjectRepositoryPort projectRepository, CurrentUserPort currentUserPort) {
         this.projectRepository = projectRepository;
         this.currentUserPort = currentUserPort;
     }
 
     @Override
-    public void create(String name) {
-        UUID ownerId = currentUserPort.getCurrentUserId();
+    public Project createProject(Project project) {
+        UUID currentUserId = currentUserPort.getCurrentUserId();
 
-        // Creamos la instancia del modelo de dominio
-        Project project = new Project(UUID.randomUUID(), ownerId, name);
+        Project newProject = new Project(
+                UUID.randomUUID(),
+                currentUserId,
+                project.getName(),
+                Project.ProjectStatus.DRAFT,
+                false
+        );
 
-        // Llamamos al puerto de salida (Opción A: void)
-        projectRepository.save(project);
+        // Retornamos el resultado del guardado
+        return projectRepository.save(newProject);
     }
 }

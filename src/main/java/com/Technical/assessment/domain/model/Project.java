@@ -1,5 +1,7 @@
 package com.Technical.assessment.domain.model;
 
+import com.Technical.assessment.domain.exception.DomainException;
+
 import java.util.UUID;
 
 public class Project {
@@ -11,23 +13,27 @@ public class Project {
 
     public enum ProjectStatus { DRAFT, ACTIVE }
 
-    public Project(UUID id, UUID ownerId, String name) {
+    // Constructor de 5 parámetros (Esto arreglará el error de tu imagen)
+    public Project(UUID id, UUID ownerId, String name, ProjectStatus status, boolean deleted) {
         this.id = id;
         this.ownerId = ownerId;
         this.name = name;
-        this.status = ProjectStatus.DRAFT;
-        this.deleted = false;
+        this.status = status;
+        this.deleted = deleted;
     }
-
-    // Business Logic, A proyect can be activated only if has at least one task active
     public void activate() {
+        // Regla implícita: No tiene sentido activar algo ya activado
+        if (this.status == ProjectStatus.ACTIVE) {
+            throw new DomainException("El proyecto ya se encuentra activo");
+        }
         this.status = ProjectStatus.ACTIVE;
     }
 
+
+    // Getters
     public UUID getId() { return id; }
     public UUID getOwnerId() { return ownerId; }
     public String getName() { return name; }
     public ProjectStatus getStatus() { return status; }
     public boolean isDeleted() { return deleted; }
-
 }

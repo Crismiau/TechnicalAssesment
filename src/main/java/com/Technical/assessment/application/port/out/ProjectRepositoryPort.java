@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProjectRepositoryPort {
-    void save(Project project);
+    Project save(Project project);
     Optional<Project> findById(UUID id);
     List<Project> findByOwnerId(UUID ownerId);
 }

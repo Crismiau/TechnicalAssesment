@@ -9,22 +9,24 @@ public class Task {
     private boolean completed;
     private boolean deleted;
 
-    public Task(UUID id, UUID projectId, String title) {
+    // Constructor de 5 parámetros (Requerido por el error de compilación)
+    public Task(UUID id, UUID projectId, String title, boolean completed, boolean deleted) {
         this.id = id;
         this.projectId = projectId;
         this.title = title;
-        this.completed = false;
-        this.deleted = false;
+        this.completed = completed;
+        this.deleted = deleted;
     }
+
+    // Método de negocio (Soluciona el error "cannot find symbol: method complete()")
     public void complete() {
         this.completed = true;
     }
 
-    // Getters
+    // Getters necesarios para el Mapper y Use Cases
     public UUID getId() { return id; }
     public UUID getProjectId() { return projectId; }
     public String getTitle() { return title; }
     public boolean isCompleted() { return completed; }
     public boolean isDeleted() { return deleted; }
 }
-

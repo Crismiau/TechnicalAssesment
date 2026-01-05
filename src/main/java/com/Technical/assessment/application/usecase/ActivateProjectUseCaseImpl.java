@@ -5,10 +5,11 @@ import com.Technical.assessment.application.port.out.*;
 import com.Technical.assessment.domain.exception.DomainException;
 import com.Technical.assessment.domain.model.Project;
 import com.Technical.assessment.domain.model.Task;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-
+@Service
 public class ActivateProjectUseCaseImpl implements ActivateProjectUseCase {
 
     private final ProjectRepositoryPort projectRepository;

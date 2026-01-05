@@ -10,19 +10,19 @@ public class TaskMapper {
         entity.setId(domain.getId());
         entity.setProjectId(domain.getProjectId());
         entity.setTitle(domain.getTitle());
-        entity.setStatus(domain.isCompleted() ? "COMPLETED" : "PENDING");
-
+        entity.setCompleted(domain.isCompleted()); // Mapeo directo
         entity.setDeleted(domain.isDeleted());
         return entity;
     }
 
     public static Task toDomain(TaskEntity entity) {
-        Task task = new Task(entity.getId(), entity.getProjectId(), entity.getTitle());
-
-        if ("COMPLETED".equals(entity.getStatus())) {
-            task.complete();
-        }
-
-        return task;
+        // Aquí usamos el constructor de 5 parámetros que creaste
+        return new Task(
+                entity.getId(),
+                entity.getProjectId(),
+                entity.getTitle(),
+                entity.isCompleted(),
+                entity.isDeleted()
+        );
     }
 }

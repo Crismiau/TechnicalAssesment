@@ -1,0 +1,15 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_assessment
+    restart: always
+    environment:
+      MYSQL_DATABASE: technical_db
+      MYSQL_ROOT_PASSWORD: root  # Esta es la única que importa para root
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

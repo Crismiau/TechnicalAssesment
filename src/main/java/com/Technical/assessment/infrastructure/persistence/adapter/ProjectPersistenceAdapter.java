@@ -22,9 +22,15 @@ public class ProjectPersistenceAdapter implements ProjectRepositoryPort {
     }
 
     @Override
-    public void save(Project project) {
+    public Project save(Project project) {
+        // 1. Mapeamos el modelo de dominio a la entidad de JPA
         ProjectEntity entity = ProjectMapper.toEntity(project);
-        jpaRepository.save(entity);
+
+        // 2. Guardamos y capturamos la entidad persistida (JPA llena los campos aquí)
+        ProjectEntity savedEntity = jpaRepository.save(entity);
+
+        // 3. Mapeamos la entidad guardada de vuelta al modelo de dominio para devolverla
+        return ProjectMapper.toDomain(savedEntity);
     }
 
     @Override
