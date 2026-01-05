@@ -1,0 +1,13 @@
+package com.Technical.assessment.application.port.out;
+
+import com.Technical.assessment.domain.model.Project;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface ProjectRepositoryPort {
+    void save(Project project);
+    Optional<Project> findById(UUID id);
+    List<Project> findByOwnerId(UUID ownerId);
+}
