@@ -1,6 +1,4 @@
-Aquí tienes una propuesta de archivo `README.md` profesional y completa para tu repositorio, incluyendo la instrucción específica sobre la configuración del secreto de JWT y las tecnologías que has implementado (Arquitectura Hexagonal, Spring Boot, React, etc.).
 
----
 
 # Technical Assessment - Sistema de Gestión de Proyectos y Tareas
 
